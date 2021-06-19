@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arcane</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" href="skeleton.png" type="image/gif" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+<style>
+ul.default {
+  list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul {
+  color:blue;
+  font-size: 50px;
+}
+</style>
+  </head>
+  <body>
+  <p hidden id="p"><a href="https://murasami.neocities.org">Game ends :)</a></p>
+  <p id="p2">Get the Box(s) in the same position (use arrow keys)<p>
+    <canvas id="myCanvas" width="600" height="700" style="solid #000000;"></canvas>
+  <script>
+      var leftKeyDown = false;
+      var rightKeyDown = false;
+      var upKeyDown = false;
+      var downKeyDown = false;
+      
+      var c = document.getElementById("myCanvas");
+      var theCanvas = c.getContext("2d");
+      var ctx=c.getContext("2d");
+      var xLoc = 20;
+      var yLoc = 20;
+      var xLocc = 580;
+      var yLocc = 680;
+      
+      var i = 100;
+      var xLocMine =  Math.floor((Math.random() * 600) + 0);
+      var yLocMine =  Math.floor((Math.random() * 700) + 0);
+      
+      while (i > 0) {
+        ctx.rect(xLocMine,yLocMine,20,20);
+        xLocMine =  Math.floor((Math.random() * 600) + 0);
+        yLocMine =  Math.floor((Math.random() * 700) + 0);
+        i--;
+      }
+      
+      function animation()
+      {
+        //This is clearing the canvas
+        theCanvas.clearRect(0,0,c.width,c.height);
+        ctx.clearRect(0,0,c.width,c.height);
+        
+        // Change Control Variables
+        if((xLoc === xLocc) && (yLoc === yLocc))
+        {
+          document.getElementById("p").style.display = "inherit";
+          document.getElementById("p2").style.display = "none";
+        }
+        if(rightKeyDown&& xLoc+20<c.width)
+        {
+          xLoc = xLoc +2;
+        }
+        if(leftKeyDown&& xLoc>0)
+        {
+          xLoc = xLoc -2;
+        }
+        if(upKeyDown && yLoc>0)
+        {
+          yLoc = yLoc-2;
+        }
+        if(downKeyDown&&yLoc+20<c.height){
+          yLoc = yLoc+2;
+        }
+        
+        if(rightKeyDown&&xLocc+20 <c.width)
+        {
+          xLocc= xLocc+1;
+        }
+        if(leftKeyDown&& xLocc>0)
+        {
+          xLocc= xLocc-1;
+        }
+        if(upKeyDown && yLocc>0)
+        {
+          yLocc = yLocc-1;
+        }
+        if(downKeyDown&&yLocc+20<c.height){
+          yLocc = yLocc+1;
+        }
+        // Redraw Your images
+        theCanvas.fillStyle="white";
+        theCanvas.strokeRect(0,0,c.width,c.height);
+        theCanvas.fillRect(0,0,c.width,c.height);
+        theCanvas.clearRect(xLoc, yLoc,20,20);
+        ctx.strokeRect (0,0,c.width,c.height);
+        ctx.rect(xLocc,yLocc,20,20);
+        ctx.stroke();
+      }
+      function myKeyDownHandler(theEvent)
+      {
+        if(theEvent.keyCode==38)
+        {
+          upKeyDown = true;
+        }
+        if(theEvent.keyCode==40)
+        {
+          downKeyDown = true;
+        }
+        if(theEvent.keyCode==39)
+        {
+          rightKeyDown = true;
+        }
+        if(theEvent.keyCode==37)
+        {
+          leftKeyDown = true;
+        }
+        theEvent.preventDefault();
+      }
+      function myKeyUpHandler(theEvent)
+      {
+        if(theEvent.keyCode==38)
+        {
+          upKeyDown = false;
+        }
+        if(theEvent.keyCode==40)
+        {
+          downKeyDown = false;
+        }
+        if(theEvent.keyCode==39)
+        {
+          rightKeyDown = false;
+        }
+        if(theEvent.keyCode==37)
+        {
+          leftKeyDown = false;
+        }
+      }
+      setInterval(animation,10);
+      // put in your event listeners (onEvent)
+      addEventListener("keydown", myKeyDownHandler); 
+      addEventListener("keyup", myKeyUpHandler);
+</script>

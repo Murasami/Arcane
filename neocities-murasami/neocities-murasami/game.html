@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+      My First Website
+    </title>
+    <link rel="stylesheet" type="text/css" href="myCSS.css">
+    <style>
+      html{
+        height:100%
+      }
+      .titleBar{
+        background-color:#b3ffff;
+        font-size:50px;
+      }
+      body{
+        background-color:white;
+        height:100%;
+      }
+      .navBar{
+        background-color:#b3ffff;
+        width:25%;
+        float:left;
+        height:100%;
+      }
+      .contentPane{
+        
+      }
+      .secondSentence{
+        color:blue;
+        font-size:45px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="titleBar">
+      <center>This is my title</center>
+    </div>
+    <div class="navBar">
+      <ul>
+        <li><a id="link1" href="https://www.google.com">Click here to go to Google</a></li>
+        <li><a href="page2.html">Go to my page 2</a></li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+      </ul>
+    </div>
+    <div class="contentPane">
+      <center>
+        <p id="helloWorld">
+          Hello World!
+        </p>
+        <button onclick="myButtonHandler()">Click me</button> 
+        
+        <p onmouseover="mouseOnMe()" onmouseout="mouseLeftObj()" class="secondSentence" id="secondLine" style="color: blue;">Line 2</p>
+        
+        <img class="image1" src="https://cdn1.pri.org/sites/default/files/styles/story_main/public/story/images/cookies733.jpg?itok=BBzxfpbJ">
+        <br>
+        <img id="grabit" src="cookies733.jpg" class="image2">
+        
+        <br>
+        
+        <canvas id="myCanvas" width="300" height="400"></canvas> 
+      </center>
+    </div>
+    
+    <script>
+      var colorNow = 1;
+      function myButtonHandler()
+      {
+        var sentence = document.getElementById("helloWorld");
+        if(colorNow == 1)
+        {
+          sentence.style.color="purple";
+          colorNow=2;
+        }else{
+          sentence.style.color="orange";
+          colorNow=1;
+        }
+      }
+      function mouseOnMe(){
+        var secondLine =document.getElementById("secondLine");
+        secondLine.innerHTML="I changed line 2";
+        secondLine.style.color="purple";
+      }
+      function mouseLeftObj(){
+        var secondLine =document.getElementById("secondLine");
+        secondLine.innerHTML="Line 2";
+        secondLine.style.color="blue";
+      }
+      
+    </script>
+    <script>
+      var leftKeyDown = false;
+      var rightKeyDown = false;
+      var upKeyDown = false;
+      var downKeyDown = false;
+      
+      var c = document.getElementById("myCanvas");
+      var theCanvas = c.getContext("2d");
+      var xLoc = 15;
+      var yLoc = 20;
+      
+      function animation()
+      {
+        //This is clearing the canvas
+        theCanvas.clearRect(0,0,c.width,c.height);
+        
+        // Change Control Variables
+        if(rightKeyDown&& xLoc+20 <c.width)
+        {
+          xLoc = xLoc +2;
+        }
+        if(leftKeyDown&& xLoc>0)
+        {
+          xLoc = xLoc -2;
+        }
+        if(upKeyDown && yLoc>0)
+        {
+          yLoc = yLoc-2;
+        }
+        if(downKeyDown&&yLoc+20<c.height){
+          yLoc = yLoc+2;
+        }
+        
+        
+        // Redraw Your images
+        theCanvas.fillStyle="purple";
+        theCanvas.strokeRect(0,0,c.width,c.height);
+        theCanvas.fillRect(0,0,c.width,c.height);
+        theCanvas.clearRect(xLoc, yLoc,20,20);
+      }
+      
+      function myKeyDownHandler(theEvent)
+      {
+        if(theEvent.keyCode==38)
+        {
+          upKeyDown = true;
+        }
+        if(theEvent.keyCode==40)
+        {
+          downKeyDown = true;
+        }
+        if(theEvent.keyCode==39)
+        {
+          rightKeyDown = true;
+        }
+        if(theEvent.keyCode==37)
+        {
+          leftKeyDown = true;
+        }
+        theEvent.preventDefault();
+      }
+      function myKeyUpHandler(theEvent)
+      {
+        if(theEvent.keyCode==38)
+        {
+          upKeyDown = false;
+        }
+        if(theEvent.keyCode==40)
+        {
+          downKeyDown = false;
+        }
+        if(theEvent.keyCode==39)
+        {
+          rightKeyDown = false;
+        }
+        if(theEvent.keyCode==37)
+        {
+          leftKeyDown = false;
+        }
+      }
+      setInterval(animation,10);
+      // put in your event listeners (onEvent)
+      addEventListener("keydown", myKeyDownHandler); 
+      addEventListener("keyup", myKeyUpHandler); 
+      
+      
+    </script>
+    
+    
+    <!--
+    comments
+    -->
+    
+  
+  
+</body>
+</html>

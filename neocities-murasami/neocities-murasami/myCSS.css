@@ -1,0 +1,13 @@
+body{
+  background-color:#000000;
+}
+ p{
+  font-size:40px;
+  color:white;
+}
+ .image1{
+   height: 200px;
+}
+.image2{
+   width: 100px;
+}
